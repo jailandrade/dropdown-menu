@@ -1,7 +1,7 @@
 {
   "name": "@jailandrade/dropdown-menu",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple dropdown menu",
   "main": "./dist/index.js",
   "author": "Mikhail Cruz Andrade",
