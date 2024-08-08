@@ -4,6 +4,8 @@ import terser from "@rollup/plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import image from "@rollup/plugin-image";
+import analyze from 'rollup-plugin-analyzer';
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 const packageJson = require("./package.json");
 
@@ -14,23 +16,18 @@ export default [
       {
         file: packageJson.main,
         format: "cjs",
+        sourceMap: true,
       },
       {
         file: packageJson.module,
         format: "esm",
+        sourceMap: true,
       },
     ],
     plugins: [
+      peerDepsExternal(),
       image(),
       postcss({
-        config: {
-          path: "./postcss.config.js",
-        },
-        extensions: [".css"],
-        minimize: true,
-        inject: {
-          insertAt: "top",
-        },
         extract: true,
         minimize: true,
       }),
@@ -41,10 +38,14 @@ export default [
       }),
       resolve({
         ignoreGlobal: false,
+        include: ['node_modules/**'],
         skip: ['react', 'react-dom'],
       }),
       commonjs(),
-      terser()
+      terser(),
+      analyze({
+        summaryOnly: true,
+      })
     ],
   },
   {
