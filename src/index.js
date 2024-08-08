@@ -1,1 +1,6 @@
-export { default as DropdownMenu } from "./components/DropdownMenu/index.js";
+import { DropdownMenu, Label } from "./components/";
+
+export {
+	DropdownMenu,
+	Label
+}
